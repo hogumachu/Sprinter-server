@@ -20,12 +20,11 @@ public func configure(_ app: Application) async throws {
         tlsConfiguration: tls
     ), as: .mysql)
 
-    app.migrations.add(CreateTodo())
-
     app.views.use(.leaf)
 
     
-
     // register routes
-    try routes(app)
+    try CompositionRoute.routes(using: app)
+    
 }
+
