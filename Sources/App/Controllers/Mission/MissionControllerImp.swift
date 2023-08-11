@@ -21,9 +21,32 @@ final class MissionControllerImp: MissionController {
             .all()
     }
     
+    func updateMission(using req: Request, update: MissionUpdate) async throws {
+        guard let model = try await Mission.query(on: req.db)
+            .filter(\.$id == update.id)
+            .first()
+        else {
+            throw Abort(.badRequest)
+        }
+        let mission = update.mission ?? model.mission
+        let category = update.category ?? model.category
+        let isCompleted = update.isCompleted ?? model.isCompleted
+        
+        model.mission = mission
+        model.category = category
+        model.isCompleted = isCompleted
+        try await model.update(on: req.db)
+    }
+    
     func createMission(using req: Request) async throws {
         let mission = try req.content.decode(Mission.self)
         try await mission.create(on: req.db)
+    }
+    
+    func deleteMission(using req: Request, missionID: MissionID) async throws {
+        try await Mission.query(on: req.db)
+            .filter(\.$id == missionID.id)
+            .delete()
     }
     
 }

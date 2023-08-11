@@ -25,8 +25,20 @@ final class MissionRouterImp: MissionRouter {
             return try await self.controller.missions(using: req, userID: userID)
         }
         
+        base.post("update") { req async throws in
+            let update = try req.content.decode(MissionUpdate.self)
+            try await self.controller.updateMission(using: req, update: update)
+            return HTTPStatus.ok
+        }
+        
         base.post("create") { req async throws in
             try await self.controller.createMission(using: req)
+            return HTTPStatus.ok
+        }
+        
+        base.post("delete") { req async throws in
+            let missionID = try req.content.decode(MissionID.self)
+            try await self.controller.deleteMission(using: req, missionID: missionID)
             return HTTPStatus.ok
         }
     }
