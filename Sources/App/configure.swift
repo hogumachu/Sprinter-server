@@ -4,27 +4,28 @@ import FluentMySQLDriver
 import Leaf
 import Vapor
 
-// configures your application
 public func configure(_ app: Application) async throws {
-    // uncomment to serve files from /Public folder
-    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-
-    var tls = TLSConfiguration.makeClientConfiguration()
-    tls.certificateVerification = .none
-
-    app.databases.use(.mysql(
-        hostname: "localhost",
-        username: "vapor",
-        password: "vapor",
-        database: "vapor",
-        tlsConfiguration: tls
-    ), as: .mysql)
-
-    app.views.use(.leaf)
-
     
-    // register routes
+    // MARK: - Configure Database
+    
+    configureLocalDatabase(using: app)
+    
+    // MARK: - Register Routes
+    
     try CompositionRoute.routes(using: app)
     
+}
+
+private func configureLocalDatabase(using app: Application) {
+    var tls = TLSConfiguration.makeClientConfiguration()
+    tls.certificateVerification = .none
+    let databaseConfig = DatabaseConfigurationFactory.mysql(
+        hostname: "localhost",
+        username: "root",
+        password: "",
+        database: "sprinter",
+        tlsConfiguration: tls
+    )
+    app.databases.use(databaseConfig, as: .mysql)
 }
 
