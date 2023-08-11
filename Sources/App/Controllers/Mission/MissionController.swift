@@ -10,6 +10,7 @@ import Vapor
 protocol MissionController: AnyObject {
     
     func missions(using req: Request) async throws -> [Mission]
+    func missions(using req: Request, userID: UserID) async throws -> [Mission]
     func createMission(using req: Request) async throws
     
 }

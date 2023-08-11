@@ -15,6 +15,12 @@ final class MissionControllerImp: MissionController {
             .all()
     }
     
+    func missions(using req: Request, userID: UserID) async throws -> [Mission] {
+        return try await Mission.query(on: req.db)
+            .filter(\.$userID == userID.id)
+            .all()
+    }
+    
     func createMission(using req: Request) async throws {
         let mission = try req.content.decode(Mission.self)
         try await mission.create(on: req.db)
