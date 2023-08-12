@@ -27,21 +27,36 @@ final class Mission: Model, Content {
     @Field(key: "is_completed")
     var isCompleted: Bool
     
+    @Field(key: "is_succeeded")
+    var isSucceeded: Bool
+    
+    @Field(key: "target_at")
+    var targetAt: Date
+    
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
     
     @Timestamp(key: "updated_at", on: .update)
     var updatedAt: Date?
     
-    
     init() { }
     
-    init(id: UUID? = nil, userID: UUID, mission: String, category: String, isCompleted: Bool) {
+    init(
+        id: UUID? = nil,
+        userID: UUID,
+        mission: String,
+        category: String,
+        isCompleted: Bool,
+        isSucceeded: Bool,
+        targetAt: Date
+    ) {
         self.id = id
         self.userID = userID
         self.mission = mission
         self.category = category
         self.isCompleted = isCompleted
+        self.isSucceeded = isSucceeded
+        self.targetAt = targetAt
     }
     
 }
