@@ -1,7 +1,6 @@
 import NIOSSL
 import Fluent
 import FluentMySQLDriver
-import Leaf
 import Vapor
 
 public func configure(_ app: Application) async throws {
