@@ -21,6 +21,12 @@ final class MissionControllerImp: MissionController {
             .all()
     }
     
+    func missions(using req: Request, categoryID: CategoryID) async throws -> [Mission] {
+        return try await Mission.query(on: req.db)
+            .filter(\.$categoryID == categoryID.id)
+            .all()
+    }
+    
     func updateMission(using req: Request, update: MissionUpdate) async throws {
         guard let model = try await Mission.query(on: req.db)
             .filter(\.$id == update.id)
