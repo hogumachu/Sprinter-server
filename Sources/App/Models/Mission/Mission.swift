@@ -21,8 +21,8 @@ final class Mission: Model, Content {
     @Field(key: "mission")
     var mission: String
     
-    @Field(key: "category")
-    var category: String
+    @Field(key: "category_id")
+    var categoryID: Int
     
     @Field(key: "is_completed")
     var isCompleted: Bool
@@ -45,7 +45,7 @@ final class Mission: Model, Content {
         id: UUID? = nil,
         userID: UUID,
         mission: String,
-        category: String,
+        categoryID: Int,
         isCompleted: Bool,
         isSucceeded: Bool,
         targetAt: Date
@@ -53,7 +53,7 @@ final class Mission: Model, Content {
         self.id = id
         self.userID = userID
         self.mission = mission
-        self.category = category
+        self.categoryID = categoryID
         self.isCompleted = isCompleted
         self.isSucceeded = isSucceeded
         self.targetAt = targetAt
