@@ -19,10 +19,15 @@ final class MissionRouterImp: MissionRouter {
         let base = app.grouped("mission")
         
         base.get { req async throws -> [Mission] in
-            guard let userID = try? req.query.decode(UserID.self) else {
-                return try await self.controller.missions(using: req)
+            if let userID = try? req.query.decode(UserID.self) {
+                return try await self.controller.missions(using: req, userID: userID)
             }
-            return try await self.controller.missions(using: req, userID: userID)
+            
+            if let categoryID = try? req.query.decode(CategoryID.self) {
+                return try await self.controller.missions(using: req, categoryID: categoryID)
+            }
+            
+            return try await self.controller.missions(using: req)
         }
         
         base.post("update") { req async throws in

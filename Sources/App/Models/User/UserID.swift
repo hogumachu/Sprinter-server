@@ -11,4 +11,8 @@ struct UserID: Content {
     
     let id: UUID
     
+    enum CodingKeys: String, CodingKey {
+        case id = "userID"
+    }
+    
 }
