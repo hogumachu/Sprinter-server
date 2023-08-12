@@ -28,13 +28,7 @@ final class MissionControllerImp: MissionController {
         else {
             throw Abort(.badRequest)
         }
-        let mission = update.mission ?? model.mission
-        let category = update.category ?? model.category
-        let isCompleted = update.isCompleted ?? model.isCompleted
-        
-        model.mission = mission
-        model.category = category
-        model.isCompleted = isCompleted
+        model.updating(update)
         try await model.update(on: req.db)
     }
     
