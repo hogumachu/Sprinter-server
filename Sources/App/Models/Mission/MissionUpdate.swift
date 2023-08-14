@@ -14,7 +14,8 @@ struct MissionUpdate: Content {
     let category: String?
     let isCompleted: Bool?
     let isSucceeded: Bool?
-    let targetAt: Date?
+    let startAt: Date?
+    let endAt: Date?
     
 }
 
@@ -27,7 +28,8 @@ extension Mission {
         category = updateModel.category ?? category
         isCompleted = updateModel.isCompleted ?? isCompleted
         isSucceeded = updateModel.isSucceeded ?? isSucceeded
-        targetAt = updateModel.targetAt ?? targetAt
+        startAt = updateModel.startAt ?? startAt
+        endAt = updateModel.endAt ?? endAt
     }
     
 }
