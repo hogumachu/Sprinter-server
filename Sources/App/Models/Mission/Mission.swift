@@ -30,8 +30,11 @@ final class Mission: Model, Content {
     @Field(key: "is_succeeded")
     var isSucceeded: Bool
     
-    @Field(key: "target_at")
-    var targetAt: Date
+    @Field(key: "start_at")
+    var startAt: Date
+    
+    @Field(key: "end_at")
+    var endAt: Date
     
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
@@ -48,7 +51,8 @@ final class Mission: Model, Content {
         categoryID: Int,
         isCompleted: Bool,
         isSucceeded: Bool,
-        targetAt: Date
+        startAt: Date,
+        endAt: Date
     ) {
         self.id = id
         self.userID = userID
@@ -56,7 +60,8 @@ final class Mission: Model, Content {
         self.categoryID = categoryID
         self.isCompleted = isCompleted
         self.isSucceeded = isSucceeded
-        self.targetAt = targetAt
+        self.startAt = startAt
+        self.endAt = endAt
     }
     
 }
